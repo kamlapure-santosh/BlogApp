@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BlogApp.Core\BlogApp.Core.csproj" />
+    <ProjectReference Include="..\BlogApp.Service\BlogApp.Service.csproj" />
   </ItemGroup>
 
 </Project>

@@ -15,5 +15,19 @@ namespace BlogApp.Core.DatabaseContext
         public DbSet<BlogPost> BlogPosts { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<AppUser> AppUsers { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<BlogPost>()
+                .HasOne(e => e.AppUser);
+
+            modelBuilder.Entity<Comment>()
+                .HasOne(e => e.AppUser);
+
+            modelBuilder.Entity<Comment>()
+                .HasOne(e => e.BlogPost);
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }
