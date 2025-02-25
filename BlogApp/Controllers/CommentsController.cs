@@ -18,6 +18,7 @@ namespace BlogApp.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<CommentDto>>> GetComments(int postId)
         {
             var comments = await _commentService.GetCommentsAsync(postId);
@@ -25,11 +26,20 @@ namespace BlogApp.Controllers
         }
 
         [HttpPost]
-       // [Authorize]
+        [Authorize]
         public async Task<ActionResult<CommentDto>> CreateComment(int postId, CommentDto commentDto)
         {
-            commentDto.BlogPostId = postId;
-         //   commentDto.UserId = int.Parse(User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier").Value);
+            commentDto.BlogPostId = postId; 
+            var userIdClaim = User.FindFirst("user_id") ?? User.FindFirst("sub");
+            if (userIdClaim != null)
+            {
+                //commentDto.UserId = int.Parse(userIdClaim.Value);
+                commentDto.UserId = 1;
+            }
+            else
+            {
+                return BadRequest("User ID claim not found.");
+            }
             var createdComment = await _commentService.CreateCommentAsync(commentDto);
             return CreatedAtAction(nameof(GetComments), new { postId = postId }, createdComment);
         }
