@@ -1,4 +1,18 @@
+using BlogApp.Core.DatabaseContext;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+
 var builder = WebApplication.CreateBuilder(args);
+
+var configuration = builder.Configuration;
+
+builder.Services.AddDbContext<BlogDbContext>(options =>
+{
+    options.UseSqlServer(
+    configuration.GetConnectionString("BlogAppDbConnection"),
+    providerOptions => providerOptions.EnableRetryOnFailure()
+    );
+});
 
 // Add services to the container.
 
