@@ -18,24 +18,24 @@ namespace BlogApp.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<BlogPost>>> GetBlogPosts()
+        public async Task<ActionResult<IEnumerable<BlogPostDto>>> GetBlogPosts()
         {
             var blogPosts = await _blogPostService.GetBlogPostsAsync();
             return Ok(blogPosts);
         }
 
         [HttpGet("user/{userId}")]
-        public async Task<ActionResult<IEnumerable<BlogPost>>> GetUserBlogPosts(int userId)
+        public async Task<ActionResult<IEnumerable<BlogPostDto>>> GetUserBlogPosts(int userId)
         {
             var blogPosts = await _blogPostService.GetUserBlogPostsAsync(userId);
             return Ok(blogPosts);
         }
 
         [HttpPost]
-        [Authorize]
-        public async Task<ActionResult<BlogPost>> CreateBlogPost(BlogPostDto blogPostDto)
+      //  [Authorize]
+        public async Task<ActionResult<BlogPostDto>> CreateBlogPost(BlogPostDto blogPostDto)
         {
-            blogPostDto.UserId = int.Parse(User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier").Value);
+            //    blogPostDto.UserId = int.Parse(User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier").Value);
             var createdBlogPost = await _blogPostService.CreateBlogPostAsync(blogPostDto);
             return CreatedAtAction(nameof(GetBlogPosts), new { id = createdBlogPost.Id }, createdBlogPost);
         }
