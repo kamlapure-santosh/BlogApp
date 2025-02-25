@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BlogApp.Data
 {
-    public class BlogPostRepository
+    public class BlogPostRepository: IBlogPostRepository
     {
         private readonly BlogDbContext _context;
 

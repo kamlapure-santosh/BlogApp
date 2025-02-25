@@ -1,5 +1,6 @@
 using BlogApp.Common;
 using BlogApp.Core.DatabaseContext;
+using BlogApp.Data;
 using BlogApp.Service;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -17,6 +18,11 @@ builder.Services.AddDbContext<BlogDbContext>(options =>
 });
 
 // Add services to the container.
+// Register repositories
+builder.Services.AddScoped<IBlogPostRepository, BlogPostRepository>();
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+
+// Register services
 builder.Services.AddScoped<IBlogPostService, BlogPostService>();
 builder.Services.AddScoped<ICommentService, CommentService>();
 
