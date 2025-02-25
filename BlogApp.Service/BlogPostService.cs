@@ -7,33 +7,50 @@ using System.Text;
 using System.Threading.Tasks;
 using BlogApp.Core.Entities;
 using Microsoft.EntityFrameworkCore;
+using BlogApp.Core.Dtos;
+using AutoMapper;
+using BlogApp.Data;
 
 namespace BlogApp.Service
 {
     public class BlogPostService : IBlogPostService
     {
-        private readonly BlogDbContext _context;
+        private readonly IBlogPostRepository _blogPostRepository;
+        private readonly IMapper _mapper;
 
-        public BlogPostService(BlogDbContext context)
+        public BlogPostService(IBlogPostRepository blogPostRepository, IMapper mapper)
         {
-            _context = context;
+            _blogPostRepository = blogPostRepository;
+            _mapper = mapper;
         }
 
-        public async Task<IEnumerable<BlogPost>> GetBlogPostsAsync()
+        public async Task<IEnumerable<BlogPostDto>> GetBlogPostsAsync()
         {
-            return await _context.BlogPosts.Include(bp => bp.Comments).ToListAsync();
+            var blogPosts = await _blogPostRepository.GetBlogPostsAsync();
+            if (blogPosts != null)
+            {
+                return _mapper.Map<List<BlogPostDto>>(blogPosts);
+            }
+            return null;
         }
 
-        public async Task<IEnumerable<BlogPost>> GetUserBlogPostsAsync(int userId)
+        public async Task<IEnumerable<BlogPostDto>> GetUserBlogPostsAsync(int userId)
         {
-            return await _context.BlogPosts.Where(bp => bp.UserId == userId).Include(bp => bp.Comments).ToListAsync();
+
+            var userBlog = await _blogPostRepository.GetUserBlogPostsAsync(userId);
+
+            if (userBlog != null)
+            {
+                return _mapper.Map<List<BlogPostDto>>(userBlog);
+            }
+            return null;
         }
 
-        public async Task<BlogPost> CreateBlogPostAsync(BlogPost blogPost)
+        public async Task<BlogPostDto> CreateBlogPostAsync(BlogPostDto blogPostDto)
         {
-            _context.BlogPosts.Add(blogPost);
-            await _context.SaveChangesAsync();
-            return blogPost;
+            var blogPost = _mapper.Map<BlogPost>(blogPostDto);
+            var addedblogPost = await _blogPostRepository.CreateBlogPostAsync(blogPost);
+            return _mapper.Map<BlogPostDto>(addedblogPost);
         }
     }
 }

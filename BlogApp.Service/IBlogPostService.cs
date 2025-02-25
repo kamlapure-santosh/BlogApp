@@ -1,4 +1,5 @@
-﻿using BlogApp.Core.Entities;
+﻿using BlogApp.Core.Dtos;
+using BlogApp.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +9,8 @@ using System.Threading.Tasks;
 namespace BlogApp.Service
 {    public interface IBlogPostService
     {
-        Task<IEnumerable<BlogPost>> GetBlogPostsAsync();
-        Task<IEnumerable<BlogPost>> GetUserBlogPostsAsync(int userId);
-        Task<BlogPost> CreateBlogPostAsync(BlogPost blogPost);
+        Task<IEnumerable<BlogPostDto>> GetBlogPostsAsync();
+        Task<IEnumerable<BlogPostDto>> GetUserBlogPostsAsync(int userId);
+        Task<BlogPostDto> CreateBlogPostAsync(BlogPostDto blogPost);
     }
 }

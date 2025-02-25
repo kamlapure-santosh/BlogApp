@@ -1,4 +1,5 @@
-﻿using BlogApp.Core.Entities;
+﻿using BlogApp.Core.Dtos;
+using BlogApp.Core.Entities;
 using BlogApp.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -32,10 +33,10 @@ namespace BlogApp.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult<BlogPost>> CreateBlogPost(BlogPost blogPost)
+        public async Task<ActionResult<BlogPost>> CreateBlogPost(BlogPostDto blogPostDto)
         {
-            blogPost.UserId = int.Parse(User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier").Value);
-            var createdBlogPost = await _blogPostService.CreateBlogPostAsync(blogPost);
+            blogPostDto.UserId = int.Parse(User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier").Value);
+            var createdBlogPost = await _blogPostService.CreateBlogPostAsync(blogPostDto);
             return CreatedAtAction(nameof(GetBlogPosts), new { id = createdBlogPost.Id }, createdBlogPost);
         }
     }

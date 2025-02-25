@@ -1,5 +1,8 @@
-﻿using BlogApp.Core.DatabaseContext;
+﻿using AutoMapper;
+using BlogApp.Core.DatabaseContext;
+using BlogApp.Core.Dtos;
 using BlogApp.Core.Entities;
+using BlogApp.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,23 +14,31 @@ namespace BlogApp.Service
 {
     public class CommentService : ICommentService
     {
-        private readonly BlogDbContext _context;
+        private readonly ICommentRepository _commentRepository;
+        private readonly IMapper _mapper;
 
-        public CommentService(BlogDbContext context)
+        public CommentService(ICommentRepository commentRepository, IMapper mapper)
         {
-            _context = context;
+            _commentRepository = commentRepository;
+            _mapper = mapper;
         }
 
-        public async Task<IEnumerable<Comment>> GetCommentsAsync(int postId)
+        public async Task<IEnumerable<CommentDto>> GetCommentsAsync(int postId)
         {
-            return await _context.Comments.Where(c => c.BlogPostId == postId).ToListAsync();
+            var comments = await _commentRepository.GetCommentsAsync(postId);
+
+            if (comments != null)
+            {
+                return _mapper.Map<List<CommentDto>>(comments);
+            }
+            return null;
         }
 
-        public async Task<Comment> CreateCommentAsync(Comment comment)
+        public async Task<CommentDto> CreateCommentAsync(CommentDto commentDto)
         {
-            _context.Comments.Add(comment);
-            await _context.SaveChangesAsync();
-            return comment;
+            var comment = _mapper.Map<Comment>(commentDto);
+            var addedComment = await _commentRepository.CreateCommentAsync(comment);
+            return _mapper.Map<CommentDto>(addedComment);
         }
     }
 }

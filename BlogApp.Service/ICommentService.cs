@@ -1,4 +1,5 @@
-﻿using BlogApp.Core.Entities;
+﻿using BlogApp.Core.Dtos;
+using BlogApp.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace BlogApp.Service
 {
     public interface ICommentService
     {
-        Task<IEnumerable<Comment>> GetCommentsAsync(int postId);
-        Task<Comment> CreateCommentAsync(Comment comment);
+        Task<IEnumerable<CommentDto>> GetCommentsAsync(int postId);
+        Task<CommentDto> CreateCommentAsync(CommentDto comment);
     }
 }
