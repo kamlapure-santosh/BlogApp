@@ -1,14 +1,6 @@
-﻿using BlogApp.Core.DatabaseContext;
-using BlogApp.Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BlogApp.Core.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
 using BlogApp.Core.Dtos;
-using AutoMapper;
+using BlogApp.Core.Entities;
 using BlogApp.Data;
 
 namespace BlogApp.Service
