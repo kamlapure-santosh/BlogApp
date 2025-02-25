@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35806.99 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogApp", "BlogApp\BlogApp.csproj", "{C9087B10-BB36-4B51-8851-66A308B2AC5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogApp.Core", "BlogApp.Core\BlogApp.Core.csproj", "{CA7EC013-2159-4ED6-AA15-AB3F33C96874}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C9087B10-BB36-4B51-8851-66A308B2AC5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9087B10-BB36-4B51-8851-66A308B2AC5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9087B10-BB36-4B51-8851-66A308B2AC5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9087B10-BB36-4B51-8851-66A308B2AC5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA7EC013-2159-4ED6-AA15-AB3F33C96874}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA7EC013-2159-4ED6-AA15-AB3F33C96874}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA7EC013-2159-4ED6-AA15-AB3F33C96874}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA7EC013-2159-4ED6-AA15-AB3F33C96874}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {95DAD351-1BC1-4E5B-B773-897E248CD75D}
+	EndGlobalSection
+EndGlobal
