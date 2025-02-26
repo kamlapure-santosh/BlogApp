@@ -15,12 +15,12 @@ The project contains the following endpoints:
 (localdb)\\MSSQLLocalDB Database - BlogAppDb 
 
 # Some useful commands
-• Add-Migration InitialCreate -Project BlogApp.Core 
-• Update-Database -Project BlogApp.Core 
+- ** Add-Migration InitialCreate -Project BlogApp.Core 
+- ** Update-Database -Project BlogApp.Core 
 
-• Install-Package FirebaseAdmin 
-• Install-Package Google.Apis.Auth 
-• Install-Package Microsoft.AspNetCore.Authentication.JwtBearer 
+- ** Install-Package FirebaseAdmin 
+- ** Install-Package Google.Apis.Auth 
+- ** Install-Package Microsoft.AspNetCore.Authentication.JwtBearer 
 
 # Firebase API
 For testing purpose a user added newazureacc1@gmail.com pwd1231
