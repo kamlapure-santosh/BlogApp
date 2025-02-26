@@ -2,25 +2,26 @@
 
 The project contains the following endpoints:
 1.	AuthController
-•	POST /api/auth/signin
+- 	POST /api/auth/signin
 2.	BlogPostsController
-•	GET /api/blogposts
-•	GET /api/blogposts/user/{userId}
-•	POST /api/blogposts
+- 	GET /api/blogposts
+- 	GET /api/blogposts/user/{userId}
+- 	POST /api/blogposts
 3.	CommentsController
-•	GET /api/blogposts/{postId}/comments
-•	POST /api/blogposts/{postId}/comments
+- 	GET /api/blogposts/{postId}/comments
+- 	POST /api/blogposts/{postId}/comments
 
 # Note- This uses SQL Server db 
-(localdb)\\MSSQLLocalDB Database - BlogAppDb
+- * (Use Update-Database command for firsttime use)
+- (localdb)\\MSSQLLocalDB Database - BlogAppDb 
 
-# Some usefull commands
-Add-Migration InitialCreate -Project BlogApp.Core
-Update-Database -Project BlogApp.Core
+# Some useful commands
+- ** Add-Migration InitialCreate -Project BlogApp.Core 
+- ** Update-Database -Project BlogApp.Core 
 
-Install-Package FirebaseAdmin
-Install-Package Google.Apis.Auth
-Install-Package Microsoft.AspNetCore.Authentication.JwtBearer
+- ** Install-Package FirebaseAdmin 
+- ** Install-Package Google.Apis.Auth 
+- ** Install-Package Microsoft.AspNetCore.Authentication.JwtBearer 
 
 # Firebase API
 For testing purpose a user added newazureacc1@gmail.com pwd1231
