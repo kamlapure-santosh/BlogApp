@@ -11,16 +11,16 @@ The project contains the following endpoints:
 •	GET /api/blogposts/{postId}/comments
 •	POST /api/blogposts/{postId}/comments
 
-# Note- This uses SQL Server db 
+# Note- This uses SQL Server db, use Update-Database command for firsttime use
 (localdb)\\MSSQLLocalDB Database - BlogAppDb
 
 # Some usefull commands
-Add-Migration InitialCreate -Project BlogApp.Core
-Update-Database -Project BlogApp.Core
+• Add-Migration InitialCreate -Project BlogApp.Core
+• Update-Database -Project BlogApp.Core
 
-Install-Package FirebaseAdmin
-Install-Package Google.Apis.Auth
-Install-Package Microsoft.AspNetCore.Authentication.JwtBearer
+• Install-Package FirebaseAdmin
+• Install-Package Google.Apis.Auth
+• Install-Package Microsoft.AspNetCore.Authentication.JwtBearer
 
 # Firebase API
 For testing purpose a user added newazureacc1@gmail.com pwd1231
