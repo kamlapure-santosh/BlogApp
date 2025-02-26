@@ -13,7 +13,8 @@ namespace BlogApp.Core.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int Id { get; set; }
-        public string Content { get; set; }
+
+        public string Content { get; set; } = string.Empty;
 
         [ForeignKey("BlogPost")]
         public int BlogPostId { get; set; }

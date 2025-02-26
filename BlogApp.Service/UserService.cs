@@ -22,10 +22,10 @@ namespace BlogApp.Service
         public async Task<AppUserDto?> GetUserByEmailAsync(string email)
         {
             var user = await _userRepository.GetUserByEmailAsync(email);
-            return user != null ? new AppUserDto {Id=user.Id, Email = user.Email, Username = user.Username } : null;
+            return user != null ? new AppUserDto { Id = user.Id, Email = user.Email, Username = user.Username } : null;
         }
 
-        public async Task CreateUserAsync(AppUserDto userDto)
+        public async Task<int> CreateUserAsync(AppUserDto userDto)
         {
             var user = new AppUser
             {
@@ -33,7 +33,7 @@ namespace BlogApp.Service
                 Username = userDto.Username,
                 Password = string.Empty
             };
-            await _userRepository.CreateUserAsync(user);
+            return await _userRepository.CreateUserAsync(user);
         }
     }
 }

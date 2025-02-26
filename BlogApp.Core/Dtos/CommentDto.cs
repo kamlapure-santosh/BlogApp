@@ -11,7 +11,6 @@ namespace BlogApp.Core.Dtos
         public int Id { get; set; }
         public required string Comment { get; set; }
 
-        [JsonIgnore]
         public int BlogPostId { get; set; }
 
         public int UserId { get; set; }

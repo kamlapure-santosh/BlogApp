@@ -5,7 +5,6 @@ namespace BlogApp.Core.Dtos
 {
    public class BlogPostDto
     {
-        [JsonIgnore]
         [SwaggerSchema(ReadOnly = true)]
         public int Id { get; set; }
         public string Title { get; set; }

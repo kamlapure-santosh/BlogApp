@@ -24,9 +24,10 @@ namespace BlogApp.Data
             return comment;
         }
 
-        public async Task<IEnumerable<Comment>> GetCommentsAsync(int commentId)
+        public async Task<IEnumerable<Comment>> GetCommentsAsync(int postId)
         {
-            return await _dbContext.Comments.Where(c => c.BlogPostId == commentId).ToListAsync();
+            var obj = await _dbContext.Comments.Where(c => c.BlogPostId == postId).ToListAsync();
+            return obj;
 
         }
     }

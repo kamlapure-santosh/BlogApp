@@ -10,6 +10,6 @@ namespace BlogApp.Data
     public interface IUserRepository
     {
         Task<AppUser?> GetUserByEmailAsync(string email);
-        Task CreateUserAsync(AppUser user);
+        Task<int> CreateUserAsync(AppUser user);
     }
 }

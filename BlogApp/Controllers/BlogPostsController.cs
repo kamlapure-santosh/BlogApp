@@ -52,9 +52,11 @@ namespace BlogApp.Controllers
                     var user = await _userService.GetUserByEmailAsync(email);
                     blogPostDto.UserId = user.Id;
                 }
-                else { blogPostDto.UserId = 1; }
+                else
+                {
+                    return BadRequest("User not found.");
+                }
             }
-
             var createdBlogPost = await _blogPostService.CreateBlogPostAsync(blogPostDto);
             return CreatedAtAction(nameof(GetBlogPosts), new { id = createdBlogPost.Id }, createdBlogPost);
         }
