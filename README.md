@@ -1,29 +1,56 @@
 # BlogApp API
 
-API Endpoints
+The project contains the following endpoints:
+1.	AuthController
+•	POST /api/auth/signin
+2.	BlogPostsController
+•	GET /api/blogposts
+•	GET /api/blogposts/user/{userId}
+•	POST /api/blogposts
+3.	CommentsController
+•	GET /api/blogposts/{postId}/comments
+•	POST /api/blogposts/{postId}/comments
+
+# API Documentation
+
+## AuthController
+### Sign In
+- **Endpoint**: `POST /api/auth/signin`
+- **Description**: Sign in with email and password.  Just ht it, I am internalary using correct valus, I will give AccessToken
 
 View all blog posts
-Endpoint: GET /api/blogposts
-Description: Retrieves a list of all blog posts.
 
-View user's own blog posts
-Endpoint: GET /api/blogposts/user/{userId}
-Description: Retrieves a list of blog posts created by a specific user.
+## BlogPostsController
 
-View comments on blog posts
-Endpoint: GET /api/blogposts/{postId}/comments
-Description: Retrieves a list of comments for a specific blog post.
+### Get All Blog Posts
+- **Endpoint**: `GET /api/blogposts`
+- **Description**: Get all blog posts.
+- **Authorization**: Required
 
-Create a blog post
-Endpoint: POST /api/blogposts
-Description: Creates a new blog post.
-Request Body: JSON object containing the blog post details (title, content, etc.).
-Comment on blog posts
+### Get User Blog Posts
+- **Endpoint**: `GET /api/blogposts/user/{userId}`
+- **Description**: Get blog posts by a specific user.
+- **Authorization**: Required
 
-Endpoint: POST /api/blogposts/{postId}/comments
-Description: Adds a comment to a specific blog post.
-Request Body: JSON object containing the comment details (content, userId, etc.).
+### Create Blog Post
+- **Endpoint**: `POST /api/blogposts`
+- **Description**: Create a new blog post.
+- **Authorization**: Required
+- **Request Body**:
 
+## CommentsController
+
+### Get Comments
+- **Endpoint**: `GET /api/blogposts/{postId}/comments`
+- **Description**: Get comments for a specific blog post.
+- **Authorization**: Required
+
+### Create Comment
+- **Endpoint**: `POST /api/blogposts/{postId}/comments`
+- **Description**: Create a new comment for a specific blog post.
+- **Authorization**: Required
+- **Request Body**:
+  
 # Note- This uses SQL Server db 
 (localdb)\\MSSQLLocalDB Database - BlogAppDb
 
