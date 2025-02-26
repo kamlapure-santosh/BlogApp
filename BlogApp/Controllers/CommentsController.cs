@@ -3,6 +3,7 @@ using BlogApp.Core.Entities;
 using BlogApp.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace BlogApp.Controllers
 {
@@ -11,10 +12,12 @@ namespace BlogApp.Controllers
     public class CommentsController : ControllerBase
     {
         private readonly ICommentService _commentService;
+        private readonly IUserService _userService;
 
-        public CommentsController(ICommentService commentService)
+        public CommentsController(ICommentService commentService, IUserService userService)
         {
             _commentService = commentService;
+            _userService = userService;
         }
 
         [HttpGet]
@@ -29,17 +32,30 @@ namespace BlogApp.Controllers
         [Authorize]
         public async Task<ActionResult<CommentDto>> CreateComment(int postId, CommentDto commentDto)
         {
-            commentDto.BlogPostId = postId; 
-            var userIdClaim = User.FindFirst("user_id") ?? User.FindFirst("sub");
-            if (userIdClaim != null)
+            if (string.IsNullOrEmpty(commentDto.Comment))
             {
-                //commentDto.UserId = int.Parse(userIdClaim.Value);
-                commentDto.UserId = 1;
+                return BadRequest("Comment content cannot be null or empty.");
             }
-            else
+
+            commentDto.BlogPostId = postId;
+            var firebaseClaim = User.FindFirst("firebase");
+            if (firebaseClaim != null)
             {
-                return BadRequest("User ID claim not found.");
+                var firebaseData = JsonDocument.Parse(firebaseClaim.Value);
+                if (firebaseData.RootElement.TryGetProperty("identities", out var identities) &&
+                    identities.TryGetProperty("email", out var emails) &&
+                    emails[0].GetString() is string email)
+                {
+                    // get user from the database
+                    var user = await _userService.GetUserByEmailAsync(email);
+                    commentDto.UserId = user.Id;
+                }
+                else
+                {
+                    return BadRequest("User not found.");
+                }
             }
+
             var createdComment = await _commentService.CreateCommentAsync(commentDto);
             return CreatedAtAction(nameof(GetComments), new { postId = postId }, createdComment);
         }

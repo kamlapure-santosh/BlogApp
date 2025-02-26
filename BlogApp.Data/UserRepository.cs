@@ -23,10 +23,11 @@ namespace BlogApp.Data
             return await _context.AppUsers.SingleOrDefaultAsync(u => u.Email == email);
         }
 
-        public async Task CreateUserAsync(AppUser user)
+        public async Task<int> CreateUserAsync(AppUser user)
         {
             _context.AppUsers.Add(user);
             await _context.SaveChangesAsync();
+            return user.Id; // Return the ID of the newly inserted user
         }
     }
 }

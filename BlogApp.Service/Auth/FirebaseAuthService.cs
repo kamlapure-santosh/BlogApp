@@ -19,7 +19,7 @@ namespace BlogApp.Service.Auth
             _userService = userService;
         }
 
-        public async Task<string> SignInWithEmailAndPasswordAsync(string email, string password)
+        public async Task<FirebaseAuthServiceResponse> SignInWithEmailAndPasswordAsync(string email, string password)
         {
             email = "newazureacc1@gmail.com";
             password = "pwd1231";
@@ -40,6 +40,7 @@ namespace BlogApp.Service.Auth
 
             var idToken = responseData.GetProperty("idToken").GetString();
             var userEmail = responseData.GetProperty("email").GetString();
+            var userId = 0;
             if (userEmail != null)
             {
                 // Check if the user exists in the database
@@ -53,11 +54,15 @@ namespace BlogApp.Service.Auth
                         Username = userEmail.Split('@')[0], // Example: use the part before '@' as the username,
 
                     };
-                    await _userService.CreateUserAsync(newUser);
+                    userId = await _userService.CreateUserAsync(newUser);
+                }
+                else
+                {
+                    userId = user.Id;
                 }
             }
 
-            return idToken;
+            return new FirebaseAuthServiceResponse { IdToken = idToken ?? string.Empty, UserId = userId };
         }
     }
 }

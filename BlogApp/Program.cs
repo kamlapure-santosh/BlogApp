@@ -94,6 +94,18 @@ builder.Services.AddSwaggerGen(c =>
 // Add AutoMapper with the mapping profile
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
+// Add CORS services
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularApp",
+        builder =>
+        {
+            builder.WithOrigins("http://localhost:4200")
+                   .AllowAnyHeader()
+                   .AllowAnyMethod();
+        });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -106,6 +118,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors("AllowAngularApp");
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

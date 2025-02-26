@@ -10,8 +10,10 @@ namespace BlogApp.Common
         public MappingProfile()
         {
             CreateMap<AppUser, AppUserDto>().ReverseMap();
-            CreateMap<Comment, CommentDto>().ReverseMap();
             CreateMap<BlogPost, BlogPostDto>().ReverseMap();
+            CreateMap<Comment, CommentDto>()
+                .ForMember(dest => dest.Comment, opt => opt.MapFrom(src => src.Content)) // Map Content property
+                .ReverseMap();
         }
     }
 }
