@@ -11,9 +11,9 @@ The project contains the following endpoints:
 •	GET /api/blogposts/{postId}/comments
 •	POST /api/blogposts/{postId}/comments
 
-# Note- This uses SQL Server db
+# Note- This uses SQL Server db 
 - * (Use Update-Database command for firsttime use)
-- * (localdb)\\MSSQLLocalDB Database - BlogAppDb 
+- (localdb)\\MSSQLLocalDB Database - BlogAppDb 
 
 # Some useful commands
 - ** Add-Migration InitialCreate -Project BlogApp.Core 
