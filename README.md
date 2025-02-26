@@ -14,7 +14,7 @@ The project contains the following endpoints:
 # Note- This uses SQL Server db, use Update-Database command for firsttime use
 (localdb)\\MSSQLLocalDB Database - BlogAppDb 
 
-# Some usefull commands
+# Some useful commands
 • Add-Migration InitialCreate -Project BlogApp.Core 
 • Update-Database -Project BlogApp.Core 
 
