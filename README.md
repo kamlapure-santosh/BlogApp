@@ -24,7 +24,7 @@ Endpoint: POST /api/blogposts/{postId}/comments
 Description: Adds a comment to a specific blog post.
 Request Body: JSON object containing the comment details (content, userId, etc.).
 
-# this uses SQL Server db 
+# Note- This uses SQL Server db 
 (localdb)\\MSSQLLocalDB Database - BlogAppDb
 
 # Some usefull commands
@@ -36,4 +36,4 @@ Install-Package Google.Apis.Auth
 Install-Package Microsoft.AspNetCore.Authentication.JwtBearer
 
 # Firebase API
-user added newazureacc1@gmail.com pwd1231
+For testing purpose a user added newazureacc1@gmail.com pwd1231
