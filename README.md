@@ -11,14 +11,26 @@ The project contains the following endpoints:
 •	GET /api/blogposts/{postId}/comments
 •	POST /api/blogposts/{postId}/comments
 
+# Note- This uses SQL Server db 
+(localdb)\\MSSQLLocalDB Database - BlogAppDb
+
+# Some usefull commands
+Add-Migration InitialCreate -Project BlogApp.Core
+Update-Database -Project BlogApp.Core
+
+Install-Package FirebaseAdmin
+Install-Package Google.Apis.Auth
+Install-Package Microsoft.AspNetCore.Authentication.JwtBearer
+
+# Firebase API
+For testing purpose a user added newazureacc1@gmail.com pwd1231
+
 # API Documentation
 
 ## AuthController
 ### Sign In
 - **Endpoint**: `POST /api/auth/signin`
 - **Description**: Sign in with email and password.  Just ht it, I am internalary using correct valus, I will give AccessToken
-
-View all blog posts
 
 ## BlogPostsController
 
@@ -50,17 +62,3 @@ View all blog posts
 - **Description**: Create a new comment for a specific blog post.
 - **Authorization**: Required
 - **Request Body**:
-  
-# Note- This uses SQL Server db 
-(localdb)\\MSSQLLocalDB Database - BlogAppDb
-
-# Some usefull commands
-Add-Migration InitialCreate -Project BlogApp.Core
-Update-Database -Project BlogApp.Core
-
-Install-Package FirebaseAdmin
-Install-Package Google.Apis.Auth
-Install-Package Microsoft.AspNetCore.Authentication.JwtBearer
-
-# Firebase API
-For testing purpose a user added newazureacc1@gmail.com pwd1231
