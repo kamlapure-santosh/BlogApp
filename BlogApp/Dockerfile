@@ -17,6 +17,7 @@ COPY ["BlogApp.Core/BlogApp.Core.csproj", "BlogApp.Core/"]
 COPY ["BlogApp.Service/BlogApp.Service.csproj", "BlogApp.Service/"]
 COPY ["BlogApp.Data/BlogApp.Data.csproj", "BlogApp.Data/"]
 RUN dotnet restore "./BlogApp/BlogApp.csproj"
+RUN chmod 666 /app/build/blogapp.db
 COPY . .
 WORKDIR "/src/BlogApp"
 RUN dotnet build "./BlogApp.csproj" -c $BUILD_CONFIGURATION -o /app/build
