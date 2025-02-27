@@ -21,7 +21,7 @@ namespace BlogApp.Controllers
         }
 
         [HttpGet]        
-        [Authorize]
+        //[Authorize]
         public async Task<ActionResult<IEnumerable<BlogPostDto>>> GetBlogPosts()
         {
             var blogPosts = await _blogPostService.GetBlogPostsAsync();
