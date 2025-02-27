@@ -17,7 +17,6 @@ COPY ["BlogApp.Core/BlogApp.Core.csproj", "BlogApp.Core/"]
 COPY ["BlogApp.Service/BlogApp.Service.csproj", "BlogApp.Service/"]
 COPY ["BlogApp.Data/BlogApp.Data.csproj", "BlogApp.Data/"]
 RUN dotnet restore "./BlogApp/BlogApp.csproj"
-RUN chmod 666 /app/build/blogapp.db
 COPY . .
 WORKDIR "/src/BlogApp"
 RUN dotnet build "./BlogApp.csproj" -c $BUILD_CONFIGURATION -o /app/build
@@ -26,6 +25,7 @@ RUN dotnet build "./BlogApp.csproj" -c $BUILD_CONFIGURATION -o /app/build
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "./BlogApp.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN chmod 666 /src/BlogApp/Database/blogapp.db
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final
