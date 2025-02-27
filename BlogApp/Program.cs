@@ -15,13 +15,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 var configuration = builder.Configuration;
 
+//builder.Services.AddDbContext<BlogDbContext>(options =>
+//{
+//    options.UseSqlServer(
+//    configuration.GetConnectionString("BlogAppDbConnection"),
+//    providerOptions => providerOptions.EnableRetryOnFailure()
+//    );
+//});
+
 builder.Services.AddDbContext<BlogDbContext>(options =>
-{
-    options.UseSqlServer(
-    configuration.GetConnectionString("BlogAppDbConnection"),
-    providerOptions => providerOptions.EnableRetryOnFailure()
-    );
-});
+    options.UseSqlite(configuration.GetConnectionString("BlogAppDbConnection")));
+
 
 // Add services to the container.
 // Register repositories

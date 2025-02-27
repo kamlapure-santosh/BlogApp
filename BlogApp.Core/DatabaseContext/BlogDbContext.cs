@@ -1,17 +1,17 @@
 ﻿using BlogApp.Core.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace BlogApp.Core.DatabaseContext
 {
     public class BlogDbContext : DbContext
     {
-        public BlogDbContext(DbContextOptions<BlogDbContext> options) : base(options) { }
-
+        private readonly IConfiguration _configuration;
+        public BlogDbContext(DbContextOptions<BlogDbContext> options, IConfiguration configuration) : base(options)
+        {
+            _configuration = configuration;
+        }
+  
         public DbSet<BlogPost> BlogPosts { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<AppUser> AppUsers { get; set; }
@@ -55,6 +55,11 @@ namespace BlogApp.Core.DatabaseContext
             );
 
             base.OnModelCreating(modelBuilder);
+        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            var connectionString = _configuration.GetConnectionString("BlogAppDbConnection");
+            optionsBuilder.UseSqlite(connectionString);
         }
     }
 }
