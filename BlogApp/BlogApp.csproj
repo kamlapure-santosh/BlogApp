@@ -25,4 +25,10 @@
     <ProjectReference Include="..\BlogApp.Service\BlogApp.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Database\blogapp.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
