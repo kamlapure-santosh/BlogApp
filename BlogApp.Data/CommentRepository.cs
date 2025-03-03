@@ -19,6 +19,16 @@ namespace BlogApp.Data
         }
         public async Task<Comment> CreateCommentAsync(Comment comment)
         {
+
+            var existingUser = _dbContext.AppUsers.Local.FirstOrDefault(u => u.Id == comment.UserId);
+            if (existingUser != null)
+            {
+                comment.AppUser = existingUser;
+            }
+            else
+            {
+                _dbContext.Attach(comment.AppUser);
+            }
             _dbContext.Comments.Add(comment);
             await _dbContext.SaveChangesAsync();
             return comment;
@@ -26,7 +36,7 @@ namespace BlogApp.Data
 
         public async Task<IEnumerable<Comment>> GetCommentsAsync(int postId)
         {
-            var obj = await _dbContext.Comments.Where(c => c.BlogPostId == postId).ToListAsync();
+            var obj = await _dbContext.Comments.Where(c => c.BlogPostId == postId).Include(user => user.AppUser).ToListAsync();
             return obj;
 
         }

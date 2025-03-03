@@ -14,5 +14,6 @@ namespace BlogApp.Core.Dtos
         public int BlogPostId { get; set; }
 
         public int UserId { get; set; }
+        public string CommentedBy { get; set; }
     }
 }

@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BlogApp.Core.Entities
 {
@@ -19,6 +14,13 @@ namespace BlogApp.Core.Entities
         [ForeignKey("AppUser")]
         public int UserId { get; set; }
         public AppUser AppUser { get; set; }
+
+        [ForeignKey("BlogCategory")]
+        public int BlogCategoryId { get; set; }
+        public BlogCategory BlogCategory { get; set; }
+
         public List<Comment> Comments { get; set; }
+        public byte[] Image { get; set; }
+        public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
     }
 }
