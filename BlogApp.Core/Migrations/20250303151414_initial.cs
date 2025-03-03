@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -7,7 +8,7 @@
 namespace BlogApp.Core.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -28,6 +29,19 @@ namespace BlogApp.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "BlogCategory",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CategoryName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BlogCategory", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "BlogPosts",
                 columns: table => new
                 {
@@ -35,7 +49,10 @@ namespace BlogApp.Core.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    BlogCategoryId = table.Column<int>(type: "int", nullable: false),
+                    Image = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -46,6 +63,12 @@ namespace BlogApp.Core.Migrations
                         principalTable: "AppUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_BlogPosts_BlogCategory_BlogCategoryId",
+                        column: x => x.BlogCategoryId,
+                        principalTable: "BlogCategory",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -84,6 +107,24 @@ namespace BlogApp.Core.Migrations
                     { 2, "jane.doe@example.com", "pwd1231", "jane_doe" }
                 });
 
+            migrationBuilder.InsertData(
+                table: "BlogCategory",
+                columns: new[] { "Id", "CategoryName" },
+                values: new object[,]
+                {
+                    { 1, "Pets" },
+                    { 2, "Travel" },
+                    { 3, "Intertainment" },
+                    { 4, "Social Media" },
+                    { 5, "Marketing" },
+                    { 6, "Shopping" }
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BlogPosts_BlogCategoryId",
+                table: "BlogPosts",
+                column: "BlogCategoryId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_BlogPosts_UserId",
                 table: "BlogPosts",
@@ -111,6 +152,9 @@ namespace BlogApp.Core.Migrations
 
             migrationBuilder.DropTable(
                 name: "AppUsers");
+
+            migrationBuilder.DropTable(
+                name: "BlogCategory");
         }
     }
 }

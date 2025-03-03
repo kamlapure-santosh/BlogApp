@@ -9,11 +9,20 @@ namespace BlogApp.Common
     {
         public MappingProfile()
         {
-            CreateMap<AppUser, AppUserDto>().ReverseMap();
-            CreateMap<BlogPost, BlogPostDto>().ReverseMap();
-            CreateMap<Comment, CommentDto>()
-                .ForMember(dest => dest.Comment, opt => opt.MapFrom(src => src.Content)) // Map Content property
+            CreateMap<BlogPost, BlogPostDto>()
+                .ForMember(dest => dest.AuthorName, opt => opt.MapFrom(src => src.AppUser.Username))
+                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.AppUser.Id))
+                .ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.BlogCategoryId))
+                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.BlogCategory.CategoryName))
                 .ReverseMap();
+
+            CreateMap<Comment, CommentDto>()
+                .ForMember(dest => dest.Comment, opt => opt.MapFrom(src => src.Content))
+                .ForMember(dest => dest.CommentedBy, opt => opt.MapFrom(src => src.AppUser.Username))
+                .ReverseMap();
+
+            CreateMap<BlogCategory, BlogCategoryDto>()
+               .ReverseMap();
         }
     }
 }

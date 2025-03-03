@@ -7,5 +7,7 @@ namespace BlogApp.Data
         Task<IEnumerable<BlogPost>> GetBlogPostsAsync();
         Task<IEnumerable<BlogPost>> GetUserBlogPostsAsync(int userId);
         Task<BlogPost> CreateBlogPostAsync(BlogPost blogPost);
+        Task<IEnumerable<BlogCategory>> GetAllCategoriesAsync();
+
     }
 }

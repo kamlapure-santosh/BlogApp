@@ -14,10 +14,13 @@ namespace BlogApp.Core.DatabaseContext
 
         public DbSet<BlogPost> BlogPosts { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<BlogCategory> BlogCategory { get; set; }
         public DbSet<AppUser> AppUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<BlogCategory>();
+
             modelBuilder.Entity<BlogPost>()
                 .HasOne(e => e.AppUser)
                 .WithMany(u => u.BlogPosts)
@@ -51,6 +54,39 @@ namespace BlogApp.Core.DatabaseContext
                     Username = "jane_doe",
                     Email = "jane.doe@example.com",
                     Password = "pwd1231"
+                }
+            );
+            // Seed data for BlogCategory
+            modelBuilder.Entity<BlogCategory>().HasData(
+                new BlogCategory
+                {
+                    Id = 1,
+                    CategoryName = "Pets",
+                },
+                new BlogCategory
+                {
+                    Id = 2,
+                    CategoryName = "Travel",
+                },
+                new BlogCategory
+                {
+                    Id = 3,
+                    CategoryName = "Intertainment",
+                },
+                new BlogCategory
+                {
+                    Id = 4,
+                    CategoryName = "Social Media",
+                },
+                new BlogCategory
+                {
+                    Id = 5,
+                    CategoryName = "Marketing",
+                },
+                new BlogCategory
+                {
+                    Id = 6,
+                    CategoryName = "Shopping",
                 }
             );
 

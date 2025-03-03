@@ -16,6 +16,16 @@ namespace BlogApp.Service
             _mapper = mapper;
         }
 
+        public async Task<IEnumerable<BlogCategoryDto>> GetAllCategoriesAsync()
+        {
+            var blogPosts = await _blogPostRepository.GetAllCategoriesAsync();
+            if (blogPosts != null)
+            {
+                return _mapper.Map<List<BlogCategoryDto>>(blogPosts);
+            }
+            return null;
+        }
+
         public async Task<IEnumerable<BlogPostDto>> GetBlogPostsAsync()
         {
             var blogPosts = await _blogPostRepository.GetBlogPostsAsync();
